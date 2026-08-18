@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="https://use.typekit.net/pnq5gyb.css">
-  <script src="https://cdn.flourish.rocks/flourish-live-v5.min.js"></script>
-  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
-  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
-  <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
-
-  <script src="https://cdn.flourish.rocks/flourish-live-v5.min.js"></script>
+  <meta charset="utf-8">
+  <title>EU battery cell demand vs. domestic supply — dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://use.typekit.net/pnq5gyb.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="dashboard.css">
+
+  <script src="https://cdn.flourish.rocks/flourish-live-v5.min.js"></script>
+  <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
   <script src="https://www.transportenvironment.org/uploads/code/iframeResizer.contentWindow.js"></script>
-
-
-
 </head>
 
 <body id="main-code">
@@ -27,46 +23,77 @@
   <div class="main-content">
 
     <div class="page-title">
-      <h1>T&E's EU road fuel excess profits tracker</h1>
-      <p>The tracker estimates excess profits generated along the supply chain of the road fuel sold in the EU following the escalation of conflict in the Middle East, triggered by US and Israeli strikes on Iran on 28 February 2026</p>
+      <h1>Can EU gigafactories supply the cells the mandate would require?</h1>
+      <p>Cell demand from EVs sold in the EU under three Industrial Accelerator Act (IAA) design options, set against
+        the EU production capacity that gigafactory projects are expected to deliver by 2027 and 2030.</p>
     </div>
 
-    <div id="dataContainer">
-      <div id="controls">
-      </div>
-      <div class="wrapper__25_number">
-        <div class="left-top box">
-          <div id="chart-2" class="chart"></div>
-   
+    <div class="kpi-row" id="kpi-row"></div>
 
-        </div>
-        <div class="left-bottom box">
-          <div id="chart-3" class="chart"></div>
-          <p>Only part of these excess profits could fall under the scope of a EU windfall profit tax</p>
+    <div class="dash-grid">
 
-        </div>
+      <div class="dash-chart box">
+        <div id="chart-0" class="chart"></div>
+        <p class="chart-help">Each panel is a target year. Bars stack cell demand by where the cells would be sourced;
+          the dashed horizontal lines mark cumulative EU production capacity by project confidence level.</p>
       </div>
-      <div class="right">
-        <div class="right-top">
 
-          <div id="chart-0" class="chart"></div>
-        </div>
-        <div class="right-bottom">
-          <div id="chart-1" class="chart"></div>
+      <aside class="dash-notes">
 
+        <div class="note box note--headline">
+          <h3>The headline</h3>
+          <p>Total demand is fixed in each year &mdash; <strong>427 GWh/yr in 2027</strong> and
+            <strong>810 GWh/yr in 2030</strong>. What the IAA changes is not how many cells Europe needs, but
+            how many of them must be made <em>in</em> Europe. That is what turns a demand curve into an
+            industrial-capacity test.</p>
         </div>
-      </div>
-      <div class="source">
-        <p>T&E analysis based on data from Oil Bulletin, Bloomberg, UNFCCC and Eurostat. For further details, <a
-            href="https://uploads.transportenvironment.org/production/files/Oil-Profits-Methodological-Note.pdf?dm=1774625180">see
-            the methodological note</a>. Prices analysed span the period from the week preceding 9 March to the week preceding 22 June, latest Oil Bulletin data available. The tracker will be updated weekly.</p>
-      </div>
+
+        <div class="note box">
+          <h3><span class="dot dot--green"></span>2027 is already tight</h3>
+          <p>A strict EU scope would pull EU-sourced demand to <strong>290 GWh/yr</strong>. High-confidence
+            gigafactory capacity covers only <strong>258 GWh/yr</strong>. The gap closes only if
+            <strong>medium-confidence projects (311 GWh/yr)</strong> come online on schedule &mdash; leaving
+            essentially no buffer for delay.</p>
+        </div>
+
+        <div class="note box">
+          <h3><span class="dot dot--orange"></span>2030 hinges on the middle tier</h3>
+          <p>By 2030 a strict EU scope implies <strong>550 GWh/yr</strong> of EU-sourced demand against just
+            <strong>397 GWh/yr</strong> of high-confidence capacity &mdash; a shortfall of roughly
+            <strong>150 GWh/yr</strong>. Adding medium-confidence projects lifts supply to
+            <strong>571 GWh/yr</strong>, which clears the bar by a mere 4%. The mandate is therefore feasible,
+            but only on the assumption that the medium-confidence pipeline delivers in full.</p>
+        </div>
+
+        <div class="note box">
+          <h3><span class="dot dot--pink"></span>Scope design is the lever</h3>
+          <p>Widening eligibility to EU+FTA partners cuts EU-scope demand from 550 to <strong>523 GWh/yr</strong>
+            in 2030 and shifts 27 GWh/yr into an undetermined category that may or may not land in Europe.
+            It buys headroom against the supply constraint at the cost of weaker guarantees that the
+            investment actually happens on EU soil.</p>
+        </div>
+
+        <div class="note box note--caveat">
+          <h3>Read with care</h3>
+          <p>Demand covers light-duty vehicles only &mdash; <strong>heavy-duty transport and stationary storage are
+              excluded</strong>. Including them would raise demand materially and widen every gap shown here.
+            The no-IAA baseline assumes today's EU origin share simply holds, with no further outsourcing.</p>
+        </div>
+
+      </aside>
     </div>
 
-<script>
-    </script>
-    <script src="app.js"></script>
- 
+    <div class="source">
+      <p><strong>Source:</strong> Demand from T&amp;E's IAA impact assessment model, assuming all EU-assembled
+        BEV+PHEV (personal &amp; commercial) under a subsidy scheme become compliant; heavy-duty and stationary
+        storage excluded. The no-IAA scenario assumes the current EU origin share of cells remains constant, without
+        further outsourcing. Supply from T&amp;E's Gigafactory ramp-up model, limited to EU scope.</p>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 
 </html>
